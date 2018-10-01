@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.user.trendy.BuildConfig;
 import com.example.user.trendy.MainActivity;
+import com.example.user.trendy.Signup.SignupActivity;
 import com.example.user.trendy.Util.SharedPreference;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -55,7 +56,7 @@ public class LoginActiviy extends AppCompatActivity implements
     String firstname = "",lastname="", email = "";
     private GraphClient graphClient;
     Button facebook;
-    TextView signup;
+    TextView signin,signup;
     EditText name_text, email_text;
     ProgressBar progressBar;
     private ProgressDialog progressDoalog;
@@ -64,21 +65,7 @@ public class LoginActiviy extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-//        int id = v.getId();
 //
-//        switch (id) {
-//            case R.id.btn_sign_in:
-//                signIn();
-//                break;
-//
-//            case R.id.btn_sign_out:
-//                signOut();
-//                break;
-//
-//            case R.id.btn_revoke_access:
-//                revokeAccess();
-//                break;
-//        }
     }
 
 
@@ -145,7 +132,8 @@ public class LoginActiviy extends AppCompatActivity implements
         });
 
         login_button = findViewById(R.id.login_button);
-        signup = findViewById(R.id.signin);
+        signin = findViewById(R.id.signin);
+        signup = findViewById(R.id.signup);
         facebook = findViewById(R.id.facebookView);
         //  name_text = findViewById(R.id.name_text);
         email_text = findViewById(R.id.email_text);
@@ -223,6 +211,14 @@ public class LoginActiviy extends AppCompatActivity implements
                     }
                 });
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActiviy.this, SignupActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
         facebook.setOnClickListener(new View.OnClickListener()
@@ -233,7 +229,7 @@ public class LoginActiviy extends AppCompatActivity implements
                 login_button.performClick();
             }
         });
-        signup.setOnClickListener(new View.OnClickListener() {
+        signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                progressDoalog = new ProgressDialog(LoginActiviy.this);
@@ -263,10 +259,9 @@ public class LoginActiviy extends AppCompatActivity implements
 
             String personName = acct.getDisplayName();
             String personPhotoUrl = acct.getPhotoUrl().toString();
-            String email = acct.getEmail();
+             email = acct.getEmail();
 
-            Toast.makeText(LoginActiviy.this,""+email,Toast.LENGTH_SHORT).show();
-
+            checkCustomer(email);
         }
     }
 
@@ -289,12 +284,12 @@ public class LoginActiviy extends AppCompatActivity implements
 //        Log.e("firstname", firstname);
 //        Log.e("lastname", lastname);
 
-        String password1 = email;
+        String password1 = email.trim();
 
         String password = Base64.encodeToString(password1.getBytes(), Base64.DEFAULT).trim();
         Log.e("coverted1", password.trim());
 
-        Storefront.CustomerCreateInput input = new Storefront.CustomerCreateInput(email, password.trim())
+        Storefront.CustomerCreateInput input = new Storefront.CustomerCreateInput(email.trim(), password.trim())
                 .setFirstName(firstname)
                   .setLastName(lastname)
                 .setAcceptsMarketing(true);
