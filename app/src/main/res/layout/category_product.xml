@@ -27,18 +27,15 @@
                     android:id="@+id/all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/lucidasansdemiboldroman"
                     android:text="All"
-                    android:textColor="@color/white"
+                    android:textColor="#ffffff"
                     android:textSize="18sp" />
 
                 <LinearLayout
                     android:id="@+id/sublayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/arrow"
@@ -52,9 +49,7 @@
                         android:id="@+id/subcategorylist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lucidasansdemiboldroman"
-                        android:text="@string/title_categories"
-                        android:textColor="@color/white"
+                        android:textColor="#ffffff"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -62,22 +57,22 @@
                     android:id="@+id/productlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/arrow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
                         android:src="@drawable/ic_rightarrow" />
 
                     <TextView
                         android:id="@+id/productlist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_categories"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="#d72b2b"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 

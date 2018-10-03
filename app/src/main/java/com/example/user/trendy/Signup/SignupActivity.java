@@ -53,43 +53,13 @@ public class SignupActivity extends Activity implements TextWatcher{
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(first_name.getText().toString().isEmpty())
+                if(isValid())
                 {
-                    firstNameInputLayout.setError("Please Enter First Name");
-                }
-
-                if(last_name.getText().toString().isEmpty())
-                {
-                    lastNameInputLayout.setError("Please Enter Last Name");
-                }
-
-                if(email_id.getText().toString().isEmpty())
-                {
-                    emailInputLayout.setError("Please Enter Email");
-                }
-
-                if(create_password.getText().toString().isEmpty())
-                {
-                    passwordInputLayout.setError("Please Enter Password");
-                }
-
-                if(mobile.getText().toString().length()!=0) {
-                    if (isValidMobile(mobile.getText().toString())) {
-                        //GOT THE CORRECT EMAIL;
-                        Toast.makeText(SignupActivity.this, "GOT Phone Number", Toast.LENGTH_SHORT).show();
-                    } else {
-                        mobileInputLayout.setError("Please Enter mobile no ");
-                    }
-                }
-
-                if(isValidMail(email_id.getText().toString()))
-                {
-                    //GOT THE CORRECT EMAIL;
-                    Toast.makeText(SignupActivity.this,"GOT ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this,"GOT",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    emailInputLayout.setError("Please Enter Email");
+                    Toast.makeText(SignupActivity.this,"Not GOT",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -143,6 +113,55 @@ public class SignupActivity extends Activity implements TextWatcher{
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    private boolean isValid() {
+        boolean check=true;
+
+        if(first_name.getText().toString().isEmpty())
+        {
+            firstNameInputLayout.setError("Please Enter First Name");
+            check=false;
+        }
+
+        if(last_name.getText().toString().isEmpty())
+        {
+            lastNameInputLayout.setError("Please Enter Last Name");
+            check=false;
+        }
+
+        if(email_id.getText().toString().isEmpty())
+        {
+            emailInputLayout.setError("Please Enter Email");
+            check=false;
+        }
+
+        if(create_password.getText().toString().isEmpty())
+        {
+            passwordInputLayout.setError("Please Enter Password");
+            check=false;
+        }
+
+        if(mobile.getText().toString().length()!=0) {
+            if (isValidMobile(mobile.getText().toString())) {
+
+            } else {
+                mobileInputLayout.setError("Please Enter mobile no ");
+                check=false;
+            }
+        }
+
+        if(isValidMail(email_id.getText().toString()))
+        {
+
+        }
+        else
+        {
+            emailInputLayout.setError("Please Enter Email");
+            check=false;
+        }
+
+        return check;
     }
 
     private boolean isValidMail(String email) {

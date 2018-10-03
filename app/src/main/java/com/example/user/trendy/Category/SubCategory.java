@@ -1,6 +1,10 @@
 package com.example.user.trendy.Category;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
@@ -26,6 +31,8 @@ import com.shopify.buy3.HttpCachePolicy;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import static com.example.user.trendy.Util.SharedPreference.Data;
 
 public class SubCategory extends Fragment {
     public String collectionurl = "https://cdn.shopify.com/s/files/1/0012/0658/3356/t/8/assets/tredyfoods.js?86827102922423728";
@@ -52,6 +59,8 @@ public class SubCategory extends Fragment {
 
 //        mTextMessage = view.findViewById(R.id.message);
 //        mTextMessage.setText(R.string.title_categories);
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(Data, Activity.MODE_PRIVATE).edit();
 
         subcategory = view.findViewById(R.id.sublayout);
         sublistname = view.findViewById(R.id.subcategorylist);
@@ -97,6 +106,10 @@ public class SubCategory extends Fragment {
 
         CategoryModel detail = (CategoryModel) getArguments().getSerializable("category_id");
         String title=detail.getCollectiontitle();
+
+        Log.e("shubham",title);
+        editor.putString("subCategory",title);
+        editor.commit();
         sublistname.setText(title);
         subCategoryModelArrayList = detail.getSubCategoryModelArrayList();
         Log.e("subarray", "" + String.valueOf(subCategoryModelArrayList.size()));

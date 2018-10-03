@@ -1,8 +1,10 @@
 package com.example.user.trendy.Category;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -63,6 +65,7 @@ import java.util.Arrays;
 import android.util.Base64;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +90,7 @@ public class CategoryProduct extends Fragment implements ProductAdapter.OnItemCl
     String checkoutId;
     TextView category_title;
     TextView view1, subcategory, filter;
-    TextView sublistname, all;
+    TextView sublistname, all,productlist;
     public static int i = 0;
     public static boolean isViewWithCatalog = true;
     CategoryModel detail = new CategoryModel();
@@ -99,9 +102,14 @@ public class CategoryProduct extends Fragment implements ProductAdapter.OnItemCl
     CartController cartController;
     CommanCartControler commanCartControler;
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.category_product, container, false);
+
+        sublistname=view.findViewById(R.id.subcategorylist);
 
         graphClient = GraphClient.builder(getActivity())
                 .shopDomain(BuildConfig.SHOP_DOMAIN)
@@ -115,6 +123,30 @@ public class CategoryProduct extends Fragment implements ProductAdapter.OnItemCl
         view1 = view.findViewById(R.id.view);
         filter.setOnClickListener(this);
         view1.setOnClickListener(this);
+
+        productlist=view.findViewById(R.id.productlist);
+
+        all = view.findViewById(R.id.all);
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
+                transaction.replace(R.id.home_container, new Categories(), "CategoryProduct");
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        sublistname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.home_container, new SubCategory(), "SubCategory");
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
 
         String category = getArguments().getString("collection");
         Log.e("categorycheck", category);
@@ -132,6 +164,10 @@ public class CategoryProduct extends Fragment implements ProductAdapter.OnItemCl
             Log.e("iud", detail.getId());
             id = detail.getId().trim();
             title = detail.getCollectiontitle();
+
+            String str = SharedPreference.getData("subCategory", getActivity().getApplicationContext());
+            sublistname.setText(str);
+            productlist.setText(title);
         } else if (category.trim().equals("allcollection")) {
             AllCollectionModel allCollectionModel = (AllCollectionModel) getArguments().getSerializable("category_id");
 //            detail.setCollection(allCollectionModel.getCollection());

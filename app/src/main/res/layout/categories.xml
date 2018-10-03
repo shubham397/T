@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/title_categories"
-            android:textColor="@color/white"
+            android:textColor="#ffffff"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_categories"
-                android:textColor="@color/white"
+                android:textColor="#d72b2b"
                 android:textSize="18sp" />
         </LinearLayout>
 

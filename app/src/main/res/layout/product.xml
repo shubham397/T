@@ -78,7 +78,7 @@
                     android:maxLines="1"
                     android:textColor="@color/cost"
                     android:textSize="12dp"
-                    app:price1="@{product.price}" />
+                    android:text="@string/Rs"/>
             </LinearLayout>
 
 
